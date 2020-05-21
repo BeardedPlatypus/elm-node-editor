@@ -8,6 +8,8 @@ variables:
   bin: './bin'
 
 steps:
+- script: npm install uglify-js --global
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -51,7 +53,9 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: './elm make src/Main.elm --output=$(bin)/main.js'
+    script: |
+      ./elm make src/Main.elm --optimize --output=$(bin)/main.js
+      uglifyjs $(bin)/main.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output=$(bin)/main.min.js
   displayName: 'Elm - Compile'
 
 - task: CopyFiles@2
