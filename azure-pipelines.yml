@@ -86,7 +86,7 @@ steps:
 - powershell: |
     git config user.email "$env:USER_EMAIL"
     git config user.name "$env:USER_NAME"
-    git add *
+    git add main.min.js index.html
     git commit -m "Automated update: $(Build.BuildNumber)"
     $url = "github.com/BeardedPlatypus/elm-node-editor.git"
     $url = ":$env:GITHUB_PW@$url"
