@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/BeardedPlatypus/elm-node-editor/blob/master/node_editor.png?raw=true" alt="PacMan" title="PacMan" width=40% /></p>
+<p align="center"><a href="https://beardedplatypus.github.io/elm-node-editor/"><img src="https://github.com/BeardedPlatypus/elm-node-editor/blob/master/node_editor.png?raw=true" alt="Simple Node Editor" title="Simple Node Editor" width=40% /></a></p>
 
 # elm-node-editor
 [![Build Status](https://dev.azure.com/mwtegelaers/elm-node-editor/_apis/build/status/BeardedPlatypus.elm-node-editor?branchName=master)](https://dev.azure.com/mwtegelaers/elm-node-editor/_build/latest?definitionId=18&branchName=master)
