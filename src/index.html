@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Simple Node Editor</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+        <script src="main.js"></script>
+    </head>
+
+    <body>
+        <section class="hero is-primary is-bold is-small">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Node Editor
+                    </h1>
+                    <h2 class="subtitle">
+                        A simple elm svg application
+                    </h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="columns">
+                <div class="column">
+                    <div class="level">
+                        <div class="level-item">
+                            <div class="box">
+                                <h1 class="title is-5" style="padding-top: 0.2em;padding-bottom: 2em;">Node Editor</h1>
+                                <div class="content">
+                                    <div id="nodeEditor"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer is-small is-marginless" style="position: absolute; bottom: 0; width: 100%; padding-bottom: 2em; padding-top: 2em;">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>elm-node-editor</strong> by <a href="https://github.com/BeardedPlatypus">Maarten Tegelaers</a>. 
+                </p>
+                <p>
+                    The <a href="https://github.com/BeardedPlatypus/elm-node-editor">source code</a> is licensed under <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                </p>
+            </div>
+        </footer>
+
+        <script>
+            var app = Elm.Main.init({
+                node: document.getElementById('nodeEditor')
+            })
+        </script>
+    </body>
+</html>
