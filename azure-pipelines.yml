@@ -36,4 +36,4 @@ steps:
       
       # Now it should be possible to run the `elm` binary just by saying its name!
       #
-      elm --help
+      ./elm --help
