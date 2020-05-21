@@ -55,18 +55,19 @@ steps:
       ./elm --help
   displayName: 'Elm - Install'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'mkdir bin'
-  displayName: 'Create bin folder'
+- powershell: |
+    git clone --no-checkout --single-branch --branch gh-pages https://github.com/BeardedPlatypus/elm-node-editor.git $(bin)
+  displayName: 'Check out - gh-pages'
+  env:
+    GITHUB_ACCOUNT: $(github.profile)
+    GITHUB_PW: $(github.password)
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      ./elm make src/Main.elm --optimize --output=$(bin)/main.js
-      uglifyjs $(bin)/main.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output=$(bin)/main.min.js
+      ./elm make src/Main.elm --optimize --output=./main.js
+      uglifyjs ./main.js --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output=$(bin)/main.min.js
   displayName: 'Elm - Compile'
 
 - task: CopyFiles@2
@@ -81,3 +82,21 @@ steps:
     pathToPublish: $(bin)
     artifactName: bin
   displayName: 'Artifacts - Publish'
+
+- powershell: |
+    git config user.email "$env:USER_EMAIL"
+    git config user.name "$env:USER_NAME"
+    git add *
+    git commit -m "Automated update: $(Build.BuildNumber)"
+    $url = "github.com/BeardedPlatypus/elm-node-editor.git"
+    $url = ":$env:GITHUB_PW@$url"
+    $url = "$env:GITHUB_ACCOUNT$url"
+    $url = "https://$url"
+    git push $url gh-pages
+  displayName: 'Update gh-pages'
+  workingDirectory: $(bin)
+  env:
+    GITHUB_ACCOUNT: $(github.profile)
+    GITHUB_PW: $(github.password)
+    USER_NAME: $(user.name)
+    USER_EMAIL: $(user.email)
