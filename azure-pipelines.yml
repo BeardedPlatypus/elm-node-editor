@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  bin: './bin'
+
 steps:
 - task: Bash@3
   inputs:
@@ -37,3 +40,29 @@ steps:
       # Now it should be possible to run the `elm` binary just by saying its name!
       #
       ./elm --help
+  displayName: 'Elm - Install'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'mkdir bin'
+  displayName: 'Create bin folder'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: './elm make src/Main.elm --output=$(bin)/main.js'
+  displayName: 'Elm - Compile'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './src'
+    Contents: 'index.html'
+    TargetFolder: $(bin)
+  displayName: 'Copy index.html'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(bin)
+    artifactName: bin
+  displayName: 'Artifacts - Publish'
